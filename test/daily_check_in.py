@@ -7,7 +7,7 @@ import os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from unittest.mock import patch, MagicMock
-from check_in import daily_check_in
+from modules.check_in import daily_check_in
 
 class TestDailyCheckIn(unittest.TestCase):
 

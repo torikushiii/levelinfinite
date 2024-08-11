@@ -1,7 +1,7 @@
 import schedule
 import time
 import argparse
-from check_in import daily_check_in
+from modules.check_in import daily_check_in
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Daily check-in script")
