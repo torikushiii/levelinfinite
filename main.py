@@ -20,7 +20,6 @@ def main() -> None:
 
     while True:
         schedule.run_pending()
-        print("Script is running...")
         time.sleep(60)
 
 if __name__ == "__main__":
