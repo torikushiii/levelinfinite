@@ -41,6 +41,49 @@ To trigger a manual check-in, use the `--manual` flag:
 python main.py --manual
 ```
 
+## Obtaining Cookie and User-Agent
+
+To perform the check-in, you may need to provide your Cookie and User-Agent. Here’s how you can obtain them:
+
+1. **Open your browser and navigate to the Level Infinite website** (make sure you're logged in).
+
+2. **Open Developer Tools:**
+
+   - **For Chrome:** Press Ctrl+Shift+I or F12.
+   - **For Firefox:** Press Ctrl+Shift+I or F12.
+
+3. **Go to the Network tab in the Developer Tools.**
+
+4. **Find a request in the Network tab whose URL contains `GetUserTotalPoints`.** The full URL might be `https://api-pass.levelinfinite.com/api/rewards/proxy/lipass/Points/GetUserTotalPoints` or something similar. You might need to refresh the page or navigate around the Level Infinite website until you see a request with this URL prefix.
+
+5. **Click on the request to view its details.**
+
+6. **Copy the Cookie:**
+
+   - Go to the Headers section.
+   - Find the `Cookie` header.
+   - Copy the value of the Cookie header.
+
+7. **Copy the User-Agent:**
+
+   - In the same Headers section.
+   - Find the `User-Agent` header.
+   - Copy the value of the User-Agent header.
+
+8. **Configure the Script:**
+
+   - Rename the `example.config.py` file to `config.py`.
+   - Open `config.py` and paste your Cookie and User-Agent values into the appropriate variables:
+
+     ```python
+     COOKIE = 'your_cookie_here'
+     USER_AGENT = 'your_user_agent_here'
+     ```
+
+     **Replace `'your_cookie_here'` and `'your_user_agent_here'` with the actual values you copied.**
+
+Now you can run the script, and it will use your provided Cookie and User-Agent for the check-in process.
+
 ## File Structure
 
 - `main.py`: The main script that handles scheduling and manual check-ins.
