@@ -2,6 +2,8 @@ import schedule
 import time
 import argparse
 from modules.check_in import daily_check_in
+from modules.user_points import get_user_points
+from config import CONFIG
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Daily check-in script")
@@ -10,12 +12,12 @@ def main() -> None:
 
     if args.manual:
         print("Performing manual check-in...")
-        daily_check_in()
+        daily_check_in(CONFIG)
         return
 
     print("Script started...")
 
-    schedule.every().day.at("09:00").do(daily_check_in)
+    schedule.every().day.at("09:00").do(daily_check_in, CONFIG)
     print("Scheduled daily check-in at 09:00 AM")
 
     while True:
