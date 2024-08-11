@@ -5,7 +5,7 @@ from modules.check_in import daily_check_in
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Daily check-in script")
-    parser.add_argument('--manual', action='store_true', help="Perform a manual check-in")
+    parser.add_argument('-m', '--manual', action='store_true', help="Perform a manual check-in")
     args = parser.parse_args()
 
     if args.manual:

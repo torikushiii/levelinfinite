@@ -36,7 +36,7 @@ python main.py
 
 ### Manual Check-In
 
-To trigger a manual check-in, use the `--manual` flag:
+To trigger a manual check-in, use the `-m` or `--manual` flag:
 ```sh
 python main.py --manual
 ```
