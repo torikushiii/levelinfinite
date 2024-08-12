@@ -5,6 +5,7 @@ from typing import Optional
 from datetime import datetime
 
 task_check_scheduled = False
+play_games_task_completed = False
 
 def get_task_list_with_status(config: dict) -> Optional[dict]:
     url = "https://api-pass.levelinfinite.com/api/rewards/proxy/lipass/Points/GetTaskListWithStatus"
@@ -26,6 +27,10 @@ def get_task_list_with_status(config: dict) -> Optional[dict]:
     return None
 
 def check_play_games_task(config: dict) -> None:
+    global play_games_task_completed
+    if play_games_task_completed:
+        return
+
     task_data = get_task_list_with_status(config)
     if task_data:
         tasks = task_data.get('tasks', [])
@@ -33,13 +38,15 @@ def check_play_games_task(config: dict) -> None:
             if task['task_name'] == "Play Games":
                 if task['is_completed']:
                     print("Play Games task is completed.")
+                    play_games_task_completed = True
                 else:
                     print("Play Games task is not completed yet.")
                 return
 
 def reset_task_check():
-    global task_check_scheduled
+    global task_check_scheduled, play_games_task_completed
     task_check_scheduled = False
+    play_games_task_completed = False
     print("Resetting task check after daily check-in.")
 
 def schedule_task_check(config: dict):
