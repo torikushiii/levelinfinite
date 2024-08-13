@@ -3,6 +3,7 @@ import schedule
 import time
 from typing import Optional
 from datetime import datetime
+import pytz
 
 task_check_scheduled = False
 play_games_task_completed = False
@@ -59,12 +60,16 @@ def schedule_task_check(config: dict):
 if __name__ == "__main__":
     from config import CONFIG
 
+    tz = pytz.timezone('Asia/Shanghai')
+    now = datetime.now(tz)
+    reset_time = now.replace(hour=9, minute=1, second=0, microsecond=0)
+
     task_check_scheduled = False
 
-    schedule.every().day.at("09:01").do(reset_task_check)
+    schedule.every().day.at(reset_time.strftime("%H:%M")).do(reset_task_check)
 
     while True:
-        current_time = datetime.now().strftime("%H:%M")
+        current_time = datetime.now(tz).strftime("%H:%M")
         if current_time >= "09:00" and not task_check_scheduled:
             schedule_task_check(CONFIG)
         
