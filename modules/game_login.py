@@ -5,6 +5,7 @@ from typing import Optional
 from datetime import datetime
 import pytz
 
+notified = False
 task_check_scheduled = False
 play_games_task_completed = False
 
@@ -41,7 +42,9 @@ def check_play_games_task(config: dict) -> None:
                     print("Play Games task is completed.")
                     play_games_task_completed = True
                 else:
-                    print("Play Games task is not completed yet.")
+                    if not notified:
+                        print("Play Games task is not completed.")
+                        notified = True
                 return
 
 def reset_task_check():
