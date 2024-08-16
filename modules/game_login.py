@@ -29,7 +29,7 @@ def get_task_list_with_status(config: dict) -> Optional[dict]:
     return None
 
 def check_play_games_task(config: dict) -> None:
-    global play_games_task_completed
+    global notified, play_games_task_completed
     if play_games_task_completed:
         return
 
