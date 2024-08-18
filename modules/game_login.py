@@ -15,16 +15,18 @@ def get_task_list_with_status(config: dict) -> Optional[dict]:
         "Cookie": config["cookie"],
         "User-Agent": config["user_agent"]
     }
-    response = requests.get(url, headers=headers)
-    
-    if response.status_code == 200:
-        data = response.json()
-        if data['code'] == 0:
-            return data['data']
+    try:
+        response = requests.get(url, headers=headers)
+        if response.status_code == 200:
+            data = response.json()
+            if data['code'] == 0:
+                return data['data']
+            else:
+                print(f"Error in response: {data['msg']}")
         else:
-            print(f"Error in response: {data['msg']}")
-    else:
-        print(f"HTTP Error: {response.status_code}")
+            print(f"HTTP Error: {response.status_code}")
+    except requests.exceptions.ConnectionError as e:
+        print(f"Connection error (ignoring): {e}")
 
     return None
 
@@ -75,6 +77,6 @@ if __name__ == "__main__":
         current_time = datetime.now(tz).strftime("%H:%M")
         if current_time >= "09:00" and not task_check_scheduled:
             schedule_task_check(CONFIG)
-        
+
         schedule.run_pending()
         time.sleep(60)
